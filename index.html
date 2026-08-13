@@ -225,22 +225,6 @@
     70%{opacity:0.35; transform:translateY(-6px) scale(0.9);}
   }
 
-  /* Scalloped arch */
-  .arch{
-    width:min(100%, 440px);
-    margin:0 auto 10px;
-    color:var(--mauve-deep);
-    position:relative;
-    z-index:2;
-  }
-  .arch svg{display:block; width:100%; height:auto;}
-  .arch-path{
-    stroke-dasharray:1200;
-    stroke-dashoffset:1200;
-    animation:arch-draw 1.6s ease forwards 0.2s;
-  }
-  @keyframes arch-draw{ to{stroke-dashoffset:0;} }
-
   /* ---------- Reveal animations ---------- */
   .reveal{
     opacity:0;
@@ -264,7 +248,7 @@
     z-index:2;
   }
   .ganesha{
-    --ganesha-size: min(156px, 44vw);
+    --ganesha-size: min(140px, 40vw);
     width: var(--ganesha-size);
     height: var(--ganesha-size);
     margin: 8px auto 18px;
@@ -1068,7 +1052,6 @@
 
   /* ---------- Reduced motion ---------- */
   @media (prefers-reduced-motion: reduce){
-    .arch-path{animation:none; stroke-dashoffset:0;}
     .ganesha, .datecard .day, .floral .bloom,
     .divider .dot, .petal, .btn-directions::after,
     .lotus, .tl-item.in .tl-node span,
@@ -1100,6 +1083,7 @@
   @media (max-width:600px){
     .invite-card{padding:30px 16px 44px; margin-top:16px;}
     .lang-switch{top:12px; right:12px; font-size:13px; gap:8px; padding:7px 12px;}
+    .hero{padding-top:56px;}
     .floral{width:min(130px, 34vw); height:min(130px, 34vw); opacity:0.75;}
     .datecard{padding:24px 30px;}
     .tl-item{grid-template-columns:92px 24px 1fr; gap:0 10px;}
@@ -1109,6 +1093,7 @@
     .host-row{gap:18px 16px;}
     .host-person .name{font-size:16px;}
     .family-photo{max-width:min(340px, 92%);}
+    .ganesha{--ganesha-size: min(118px, 36vw);}
     .house-scene{width:min(140px, 42vw); margin-bottom:18px;}
     .petals .petal:nth-child(n+7):not(.sparkle){display:none;}
     .petals .petal.sparkle:nth-child(n+11){display:none;}
@@ -1228,26 +1213,6 @@
       <span class="petal sparkle"></span>
     </div>
 
-    <!-- Scalloped arch -->
-    <div class="arch reveal" data-delay="0" aria-hidden="true">
-      <svg viewBox="0 0 400 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path class="arch-path" d="M20 88
-          C20 88 28 70 40 70
-          C52 70 58 82 70 82
-          C82 82 88 70 100 70
-          C112 70 118 82 130 82
-          C142 82 148 70 160 70
-          C180 70 190 40 200 28
-          C210 40 220 70 240 70
-          C252 70 258 82 270 82
-          C282 82 288 70 300 70
-          C312 70 318 82 330 82
-          C342 82 348 70 360 70
-          C372 70 380 88 380 88"
-          stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-      </svg>
-    </div>
-
     <!-- HERO -->
     <header class="hero">
       <div class="ganesha reveal" data-delay="100" aria-hidden="true">
@@ -1334,7 +1299,7 @@
         <div class="datecard">
           <span class="month" data-i18n="month">ઓગસ્ટ · ૨૦૨૬</span>
           <span class="day">20</span>
-          <span class="meta"><span data-i18n="weekday">ગુરુવાર</span><span data-i18n="fromTime">બપોરે ૧:૩૦ થી</span></span>
+          <span class="meta"><span data-i18n="weekday">ગુરુવાર</span></span>
         </div>
       </div>
     </header>
@@ -1480,7 +1445,6 @@
       msg3: 'આ રૂડા અવસરે અમોને આશીર્વાદ આપવા અને વાસ્તુ પૂજનમાં પધારવા આપને ભાવભીનું આમંત્રણ છે.',
       month: 'ઓગસ્ટ · ૨૦૨૬',
       weekday: 'ગુરુવાર',
-      fromTime: 'બપોરે ૧:૩૦ થી',
       scheduleEyebrow: 'કાર્યક્રમ',
       scheduleTitle: 'સમયપત્રક',
       tlTime1: 'બપોરે<br>૧:૩૦ થી ૫:૩૦',
@@ -1516,7 +1480,6 @@
       msg3: 'We warmly invite you to bless us and grace the Vastu Pujan on this beautiful occasion.',
       month: 'August · 2026',
       weekday: 'Thursday',
-      fromTime: 'From 1:30 PM',
       scheduleEyebrow: 'Programme',
       scheduleTitle: 'Schedule',
       tlTime1: 'Afternoon<br>1:30 – 5:30',
@@ -1597,7 +1560,7 @@
 
     items.forEach(function (el) {
       var delay = parseInt(el.getAttribute('data-delay') || '0', 10);
-      if (el.closest('header') || el.classList.contains('arch') || el.hasAttribute('data-delay')) {
+      if (el.closest('header') || el.hasAttribute('data-delay')) {
         setTimeout(function () { el.classList.add('in'); }, delay + 80);
       }
     });
@@ -1613,7 +1576,7 @@
       }, { threshold: 0.18, rootMargin: '0px 0px -24px 0px' });
 
       items.forEach(function (el) {
-        if (!el.closest('header') && !el.classList.contains('arch')) {
+        if (!el.closest('header')) {
           io.observe(el);
         }
       });
