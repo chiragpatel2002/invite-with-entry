@@ -56,40 +56,48 @@
   /* Language switch */
   .lang-switch{
     position:absolute;
-    top:18px;
-    right:22px;
+    top:16px;
+    right:18px;
     z-index:5;
     display:inline-flex;
     align-items:center;
-    gap:8px;
+    gap:10px;
+    padding:8px 14px;
     font-family:'Jost', sans-serif;
-    font-size:12px;
+    font-size:14px;
     font-weight:500;
-    letter-spacing:0.12em;
+    letter-spacing:0.08em;
+    background:rgba(251,244,236,0.92);
+    border:1px solid rgba(185,136,76,0.45);
+    border-radius:999px;
+    box-shadow:0 6px 18px -10px rgba(58,30,42,0.28);
+    backdrop-filter:blur(6px);
   }
   .lang-switch button{
     background:none;
     border:none;
-    padding:4px 2px;
+    padding:4px 6px;
     cursor:pointer;
     color:var(--mauve);
     opacity:0.55;
     font:inherit;
     letter-spacing:inherit;
-    text-transform:uppercase;
-    border-bottom:1.5px solid transparent;
+    text-transform:none;
+    border-bottom:2px solid transparent;
     transition:opacity .2s ease, color .2s ease, border-color .2s ease;
   }
   .lang-switch button:hover{opacity:0.85; color:var(--mauve-deep);}
   .lang-switch button[aria-pressed="true"]{
     opacity:1;
     color:var(--mauve-deep);
+    font-weight:600;
     border-bottom-color:var(--gold);
   }
   .lang-switch .sep{
     color:var(--gold);
-    opacity:0.5;
+    opacity:0.65;
     user-select:none;
+    font-weight:400;
   }
 
   body::before{
@@ -1091,7 +1099,7 @@
   /* ---------- Responsive ---------- */
   @media (max-width:600px){
     .invite-card{padding:30px 16px 44px; margin-top:16px;}
-    .lang-switch{top:12px; right:14px; font-size:11px; gap:6px;}
+    .lang-switch{top:12px; right:12px; font-size:13px; gap:8px; padding:7px 12px;}
     .floral{width:min(130px, 34vw); height:min(130px, 34vw); opacity:0.75;}
     .datecard{padding:24px 30px;}
     .tl-item{grid-template-columns:92px 24px 1fr; gap:0 10px;}
@@ -1200,9 +1208,9 @@
   <div class="invite-card">
 
     <div class="lang-switch" role="group" aria-label="Language">
-      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      <button type="button" data-lang="en" aria-pressed="false">English</button>
       <span class="sep" aria-hidden="true">|</span>
-      <button type="button" data-lang="gu" aria-pressed="true">ગુજ</button>
+      <button type="button" data-lang="gu" aria-pressed="true">ગુજરાતી</button>
     </div>
 
     <div class="petals" aria-hidden="true">
@@ -1326,7 +1334,7 @@
         <div class="datecard">
           <span class="month" data-i18n="month">ઓગસ્ટ · ૨૦૨૬</span>
           <span class="day">20</span>
-          <span class="meta"><span data-i18n="weekday">ગુરુવાર</span><span data-i18n="fromTime">બપોરે ૨ થી</span></span>
+          <span class="meta"><span data-i18n="weekday">ગુરુવાર</span><span data-i18n="fromTime">બપોરે ૧:૩૦ થી</span></span>
         </div>
       </div>
     </header>
@@ -1340,7 +1348,7 @@
 
       <div class="timeline">
         <div class="tl-item reveal">
-          <div class="tl-time" data-i18n-html="tlTime1">બપોરે<br>૨ થી ૫:૩૦</div>
+          <div class="tl-time" data-i18n-html="tlTime1">બપોરે<br>૧:૩૦ થી ૫:૩૦</div>
           <div class="tl-node"><span></span></div>
           <div class="tl-content">
             <h3 data-i18n="tlTitle1">વાસ્તુ પૂજન</h3>
@@ -1348,11 +1356,11 @@
           </div>
         </div>
         <div class="tl-item reveal">
-          <div class="tl-time" data-i18n-html="tlTime2">સાંજે<br>૬ થી આગમન સુધી</div>
+          <div class="tl-time" data-i18n-html="tlTime2">સાંજે<br>૬</div>
           <div class="tl-node"><span></span></div>
           <div class="tl-content">
             <h3 data-i18n="tlTitle2">પ્રીતિ ભોજન</h3>
-            <p data-i18n="tlDesc2">સાંજે ૬ કલાકથી આપના આગમન સુધી — સાથે આનંદ વહેંચીએ.</p>
+            <p data-i18n="tlDesc2">સાંજે ૬ કલાકે — સાથે આનંદ વહેંચીએ.</p>
           </div>
         </div>
       </div>
@@ -1472,15 +1480,15 @@
       msg3: 'આ રૂડા અવસરે અમોને આશીર્વાદ આપવા અને વાસ્તુ પૂજનમાં પધારવા આપને ભાવભીનું આમંત્રણ છે.',
       month: 'ઓગસ્ટ · ૨૦૨૬',
       weekday: 'ગુરુવાર',
-      fromTime: 'બપોરે ૨ થી',
+      fromTime: 'બપોરે ૧:૩૦ થી',
       scheduleEyebrow: 'કાર્યક્રમ',
       scheduleTitle: 'સમયપત્રક',
-      tlTime1: 'બપોરે<br>૨ થી ૫:૩૦',
+      tlTime1: 'બપોરે<br>૧:૩૦ થી ૫:૩૦',
       tlTitle1: 'વાસ્તુ પૂજન',
       tlDesc1: 'ભગવાન અને વડીલોના આશીર્વાદથી અમારા નવા નિવાસસ્થાનનું વાસ્તુ પૂજન.',
-      tlTime2: 'સાંજે<br>૬ થી આગમન સુધી',
+      tlTime2: 'સાંજે<br>૬',
       tlTitle2: 'પ્રીતિ ભોજન',
-      tlDesc2: 'સાંજે ૬ કલાકથી આપના આગમન સુધી — સાથે આનંદ વહેંચીએ.',
+      tlDesc2: 'સાંજે ૬ કલાકે — સાથે આનંદ વહેંચીએ.',
       venueEyebrow: 'સ્થળ',
       venueTitle: 'શુભ સ્થળ',
       venueKicker: 'ડિવાઇન, સુપરસિટી ટાઉનશિપ',
@@ -1508,15 +1516,15 @@
       msg3: 'We warmly invite you to bless us and grace the Vastu Pujan on this beautiful occasion.',
       month: 'August · 2026',
       weekday: 'Thursday',
-      fromTime: 'From 2 PM',
+      fromTime: 'From 1:30 PM',
       scheduleEyebrow: 'Programme',
       scheduleTitle: 'Schedule',
-      tlTime1: 'Afternoon<br>2:00 – 5:30',
+      tlTime1: 'Afternoon<br>1:30 – 5:30',
       tlTitle1: 'Vastu Pujan',
       tlDesc1: 'Vastu Pujan of our new home, with the blessings of God and our elders.',
-      tlTime2: 'Evening<br>From 6 PM onwards',
+      tlTime2: 'Evening<br>6 PM',
       tlTitle2: 'Community Feast',
-      tlDesc2: 'From 6 PM until your arrival — let us share the joy together.',
+      tlDesc2: 'Evening 6 PM — let us share the joy together.',
       venueEyebrow: 'Venue',
       venueTitle: 'Blessed Venue',
       venueKicker: 'Divine, Supercity Township',
@@ -1563,8 +1571,6 @@
     if (gateEl) {
       gateEl.setAttribute('aria-label', lang === 'en' ? 'Open invitation' : 'આમંત્રણ ખોલો');
     }
-
-    try { localStorage.setItem('invite-lang', lang); } catch (e) {}
   }
 
   langButtons.forEach(function (btn) {
@@ -1573,12 +1579,7 @@
     });
   });
 
-  var saved = 'gu';
-  try {
-    var stored = localStorage.getItem('invite-lang');
-    if (stored === 'en' || stored === 'gu') saved = stored;
-  } catch (e) {}
-  setLang(saved);
+  setLang('gu');
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var items = document.querySelectorAll('.reveal');
@@ -1635,8 +1636,14 @@
     gate.classList.add('is-gone');
   }
 
+  var autoOpenTimer = null;
+
   function openGate() {
     if (!gate || gate.classList.contains('is-open')) return;
+    if (autoOpenTimer) {
+      clearTimeout(autoOpenTimer);
+      autoOpenTimer = null;
+    }
     gate.classList.add('is-open');
     gate.setAttribute('aria-hidden', 'true');
     gate.removeAttribute('tabindex');
@@ -1672,6 +1679,7 @@
         openGate();
       }
     });
+    autoOpenTimer = setTimeout(openGate, 3000);
   }
 })();
 </script>
