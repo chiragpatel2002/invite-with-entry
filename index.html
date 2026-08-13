@@ -100,6 +100,45 @@
     font-weight:400;
   }
 
+  /* Music toggle */
+  .music-toggle{
+    position:fixed;
+    bottom:22px;
+    left:18px;
+    z-index:110;
+    width:46px;
+    height:46px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:0;
+    border-radius:50%;
+    border:1px solid rgba(185,136,76,0.45);
+    background:rgba(251,244,236,0.94);
+    box-shadow:0 8px 22px -12px rgba(58,30,42,0.35);
+    backdrop-filter:blur(6px);
+    color:var(--mauve-deep);
+    cursor:pointer;
+    transition:transform .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .music-toggle:hover{
+    transform:translateY(-1px);
+    border-color:rgba(185,136,76,0.7);
+    color:var(--plum);
+  }
+  .music-toggle:focus-visible{
+    outline:2px solid var(--gold);
+    outline-offset:3px;
+  }
+  .music-toggle svg{
+    width:20px;
+    height:20px;
+    display:block;
+  }
+  .music-toggle .icon-muted{display:none;}
+  .music-toggle.is-muted .icon-on{display:none;}
+  .music-toggle.is-muted .icon-muted{display:block;}
+
   body::before{
     content:"";
     position:fixed; inset:0;
@@ -251,7 +290,7 @@
     --ganesha-size: min(140px, 40vw);
     width: var(--ganesha-size);
     height: var(--ganesha-size);
-    margin: 8px auto 18px;
+    margin: 8px auto 22px;
     position: relative;
     border-radius: 50%;
     padding: 7px;
@@ -266,16 +305,19 @@
       0 14px 32px -14px rgba(58,30,42,0.35),
       0 0 22px rgba(185,136,76,0.35),
       0 0 48px rgba(185,136,76,0.2);
-    animation: ganesha-glow 3.8s ease-in-out infinite;
+    animation: ganesha-float 3.2s ease-in-out infinite, ganesha-glow 3.8s ease-in-out infinite;
+    will-change: transform, box-shadow;
   }
   .ganesha::before{
     content: "";
     position: absolute;
-    inset: -16px;
+    inset: -18px;
     border-radius: 50%;
     z-index: -1;
     pointer-events: none;
-    background: radial-gradient(circle at 50% 50%, rgba(185,136,76,0.32), rgba(201,126,156,0.1) 42%, transparent 70%);
+    background:
+      radial-gradient(circle at 50% 50%, rgba(185,136,76,0.38), rgba(201,126,156,0.12) 42%, transparent 70%);
+    animation: ganesha-aura 4.5s ease-in-out infinite;
   }
   .ganesha::after{
     content: "";
@@ -295,6 +337,60 @@
       radial-gradient(circle at 50% 6%, var(--gold) 0 2.5px, transparent 3px),
       radial-gradient(circle at 50% 94%, var(--gold) 0 2.5px, transparent 3px);
   }
+  .ganesha-ring{
+    position: absolute;
+    inset: -10px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    border: 1.5px dashed rgba(185,136,76,0.45);
+    animation: ganesha-spin 14s linear infinite;
+  }
+  .ganesha-ring::before,
+  .ganesha-ring::after{
+    content: "";
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #E8C878;
+    box-shadow: 0 0 10px rgba(232,200,120,0.85);
+  }
+  .ganesha-ring::before{ top: -3px; left: 50%; margin-left: -3.5px; }
+  .ganesha-ring::after{ bottom: -3px; left: 50%; margin-left: -3.5px; background: var(--gold); }
+  .ganesha-sparks{
+    position: absolute;
+    inset: -28px;
+    pointer-events: none;
+    z-index: 3;
+  }
+  .ganesha-sparks span{
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #E8C878;
+    box-shadow: 0 0 8px rgba(232,200,120,0.9);
+    opacity: 0;
+    animation: ganesha-spark 2.8s ease-in-out infinite;
+  }
+  .ganesha-sparks span:nth-child(1){ top: 8%; left: 48%; animation-delay: 0s; }
+  .ganesha-sparks span:nth-child(2){ top: 22%; right: 6%; animation-delay: 0.35s; width: 4px; height: 4px; }
+  .ganesha-sparks span:nth-child(3){ bottom: 18%; right: 10%; animation-delay: 0.7s; }
+  .ganesha-sparks span:nth-child(4){ bottom: 6%; left: 46%; animation-delay: 1.05s; width: 4px; height: 4px; }
+  .ganesha-sparks span:nth-child(5){ bottom: 22%; left: 8%; animation-delay: 1.4s; }
+  .ganesha-sparks span:nth-child(6){ top: 20%; left: 8%; animation-delay: 1.75s; width: 3px; height: 3px; }
+  .ganesha-sparks span.star{
+    width: 8px;
+    height: 8px;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    background:
+      linear-gradient(var(--gold), var(--gold)) center / 2px 100% no-repeat,
+      linear-gradient(var(--gold), var(--gold)) center / 100% 2px no-repeat;
+    filter: drop-shadow(0 0 4px rgba(232,200,120,0.85));
+  }
   .ganesha img{
     width: 100%;
     height: 100%;
@@ -306,6 +402,27 @@
     border: 1px solid rgba(185,136,76,0.35);
     position: relative;
     z-index: 1;
+    animation: ganesha-breathe 3.2s ease-in-out infinite;
+    transform-origin: center 55%;
+  }
+  @keyframes ganesha-float{
+    0%,100%{ transform: translateY(0) rotate(-1.2deg); }
+    50%{ transform: translateY(-10px) rotate(1.2deg); }
+  }
+  @keyframes ganesha-breathe{
+    0%,100%{ transform: scale(1); }
+    50%{ transform: scale(1.035); }
+  }
+  @keyframes ganesha-aura{
+    0%,100%{ transform: scale(0.92); opacity: 0.55; }
+    50%{ transform: scale(1.12); opacity: 1; }
+  }
+  @keyframes ganesha-spin{
+    to{ transform: rotate(360deg); }
+  }
+  @keyframes ganesha-spark{
+    0%,100%{ opacity: 0; transform: scale(0.4) translateY(4px); }
+    40%,60%{ opacity: 1; transform: scale(1) translateY(-2px); }
   }
   @keyframes ganesha-glow{
     0%,100%{
@@ -1154,7 +1271,8 @@
 
   /* ---------- Reduced motion ---------- */
   @media (prefers-reduced-motion: reduce){
-    .ganesha, .datecard .day, .floral .bloom,
+    .ganesha, .ganesha img, .ganesha::before, .ganesha-ring, .ganesha-sparks span,
+    .datecard .day, .floral .bloom,
     .divider .dot, .petal, .btn-directions::after,
     .lotus, .tl-item.in .tl-node span,
     .family-photo.in, .family-photo.in img,
@@ -1165,6 +1283,7 @@
     .curtain-flower{animation:none !important;}
     .petal{opacity:0.3; top:auto;}
     .house-window-glow{opacity:0.7;}
+    .ganesha-sparks{display:none;}
     .ganesha{
       box-shadow:
         0 0 0 1px rgba(185,136,76,0.55),
@@ -1185,6 +1304,8 @@
   @media (max-width:600px){
     .invite-card{padding:30px 16px 44px; margin-top:16px;}
     .lang-switch{top:12px; right:12px; font-size:13px; gap:8px; padding:7px 12px;}
+    .music-toggle{bottom:16px; left:14px; width:42px; height:42px;}
+    .music-toggle svg{width:18px; height:18px;}
     .hero{padding-top:56px;}
     .floral{width:min(130px, 34vw); height:min(130px, 34vw); opacity:0.75;}
     .datecard{padding:24px 30px;}
@@ -1203,6 +1324,18 @@
 </style>
 </head>
 <body class="curtain-locked">
+
+<audio id="bg-music" src="audio/vastu-ambient.mp3" loop preload="auto" playsinline></audio>
+<button type="button" class="music-toggle is-muted" id="music-toggle" aria-pressed="true" aria-label="સંગીત ચાલુ કરો" data-i18n-aria="musicOff">
+  <svg class="icon-on" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M11 5L6.5 9H3v6h3.5L11 19V5z" fill="currentColor"/>
+    <path d="M15.2 8.8a4.2 4.2 0 010 6.4M17.6 6.2a7.5 7.5 0 010 11.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+  </svg>
+  <svg class="icon-muted" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M11 5L6.5 9H3v6h3.5L11 19V5z" fill="currentColor"/>
+    <path d="M16 9.5l5 5M21 9.5l-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+  </svg>
+</button>
 
 <!-- Curtain gate intro -->
 <div id="curtain-gate" role="button" tabindex="0" aria-label="Open invitation">
@@ -1318,7 +1451,16 @@
     <!-- HERO -->
     <header class="hero">
       <div class="ganesha reveal" data-delay="100" aria-hidden="true">
+        <span class="ganesha-ring"></span>
         <img src="Ganesh.jpg" alt="" width="312" height="312" decoding="async">
+        <span class="ganesha-sparks">
+          <span class="star"></span>
+          <span></span>
+          <span class="star"></span>
+          <span></span>
+          <span class="star"></span>
+          <span></span>
+        </span>
       </div>
 
       <div class="house-scene reveal" data-delay="160" aria-hidden="true">
@@ -1561,7 +1703,9 @@
       host5: 'સ્કંધ સચિન પટેલ',
       footer: 'આપના આશીર્વાદ અને આગમનની રાહ જોઈએ છીએ.',
       openTitle: 'વાસ્તુ પૂજન',
-      openCue: 'ખોલવા માટે ટચ કરો'
+      openCue: 'ખોલવા માટે ટચ કરો',
+      musicOn: 'સંગીત બંધ કરો',
+      musicOff: 'સંગીત ચાલુ કરો'
     },
     en: {
       pageTitle: 'Vastu Pujan — Divine 58',
@@ -1596,15 +1740,56 @@
       host5: 'Skandh Sachin Patel',
       footer: 'We look forward to your blessings and your presence.',
       openTitle: 'Vastu Pujan',
-      openCue: 'Tap to open'
+      openCue: 'Tap to open',
+      musicOn: 'Mute music',
+      musicOff: 'Play music'
     }
   };
 
   var metaDesc = document.querySelector('meta[name="description"]');
   var langButtons = document.querySelectorAll('.lang-switch button[data-lang]');
+  var bgMusic = document.getElementById('bg-music');
+  var musicToggle = document.getElementById('music-toggle');
+  var musicStarted = false;
+  var currentLang = 'gu';
+
+  function musicLabel(key) {
+    var t = translations[currentLang] || translations.gu;
+    return t[key] || key;
+  }
+
+  function syncMusicToggle(isMuted) {
+    if (!musicToggle) return;
+    musicToggle.classList.toggle('is-muted', isMuted);
+    musicToggle.setAttribute('aria-pressed', isMuted ? 'true' : 'false');
+    var key = isMuted ? 'musicOff' : 'musicOn';
+    musicToggle.setAttribute('aria-label', musicLabel(key));
+    musicToggle.setAttribute('data-i18n-aria', key);
+  }
+
+  function startMusic() {
+    if (!bgMusic) return Promise.resolve(false);
+    bgMusic.volume = 0.35;
+    bgMusic.muted = false;
+    var playPromise = bgMusic.play();
+    if (playPromise && typeof playPromise.then === 'function') {
+      return playPromise.then(function () {
+        musicStarted = true;
+        syncMusicToggle(false);
+        return true;
+      }).catch(function () {
+        syncMusicToggle(true);
+        return false;
+      });
+    }
+    musicStarted = true;
+    syncMusicToggle(false);
+    return Promise.resolve(true);
+  }
 
   function setLang(lang) {
     if (!translations[lang]) lang = 'gu';
+    currentLang = lang;
     var t = translations[lang];
     document.documentElement.lang = lang;
     document.title = t.pageTitle;
@@ -1626,6 +1811,12 @@
     var gateEl = document.getElementById('curtain-gate');
     if (gateEl) {
       gateEl.setAttribute('aria-label', lang === 'en' ? 'Open invitation' : 'આમંત્રણ ખોલો');
+    }
+
+    if (musicToggle) {
+      var musicKey = musicToggle.classList.contains('is-muted') ? 'musicOff' : 'musicOn';
+      musicToggle.setAttribute('aria-label', t[musicKey]);
+      musicToggle.setAttribute('data-i18n-aria', musicKey);
     }
   }
 
@@ -1703,6 +1894,7 @@
     gate.classList.add('is-open');
     gate.setAttribute('aria-hidden', 'true');
     gate.removeAttribute('tabindex');
+    startMusic();
 
     var revealed = false;
     function onCurtainsDone() {
@@ -1736,6 +1928,24 @@
       }
     });
     autoOpenTimer = setTimeout(openGate, 3000);
+  }
+
+  if (musicToggle) {
+    syncMusicToggle(true);
+    musicToggle.addEventListener('click', function () {
+      if (!bgMusic) return;
+      if (!musicStarted || bgMusic.paused) {
+        startMusic();
+        return;
+      }
+      if (bgMusic.muted || musicToggle.classList.contains('is-muted')) {
+        bgMusic.muted = false;
+        syncMusicToggle(false);
+      } else {
+        bgMusic.muted = true;
+        syncMusicToggle(true);
+      }
+    });
   }
 })();
 </script>
