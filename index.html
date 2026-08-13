@@ -669,6 +669,14 @@
     z-index:2;
     box-sizing:border-box;
   }
+  /* Keep card top + lang switch visible when snapping back to hero */
+  .hero.snap-page{
+    justify-content:flex-start;
+    scroll-margin-top:70px; /* invite-card margin-top + padding-top */
+  }
+  .snap-page.hosts-page{
+    justify-content:flex-start;
+  }
   .snap-page + .snap-page{
     border-top:1px solid var(--line);
   }
@@ -1329,6 +1337,7 @@
     .music-toggle{bottom:16px; left:14px; width:42px; height:42px;}
     .music-toggle svg{width:18px; height:18px;}
     .hero{padding-top:56px;}
+    .hero.snap-page{scroll-margin-top:46px; /* 16 + 30 card inset */}
     .floral{width:min(130px, 34vw); height:min(130px, 34vw); opacity:0.75;}
     .datecard{padding:24px 30px;}
     .tl-item{grid-template-columns:92px 24px 1fr; gap:0 10px;}
